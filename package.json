@@ -29,6 +29,7 @@
     "url": "https://github.com/jgthms/bulma/issues"
   },
   "devDependencies": {
+    "browser-sync": "^3.0.4",
     "cssnano": "^7.1.2",
     "postcss-cli": "^11.0.1",
     "prettier": "^3.7.4",
@@ -49,7 +50,8 @@
     "clean": "rimraf css",
     "deploy": "npm run clean && npm run build-all && npm run minify-all",
     "test": "sass --style=expanded --source-map --watch test.scss test.css",
-    "start": "npm run build-bulma -- --watch"
+    "start": "npm run build-bulma -- --watch",
+    "cheatsheet": "browser-sync start --server --files 'css/*.css' --startPath examples/cheatsheet.html --no-notify"
   },
   "files": [
     "css",
