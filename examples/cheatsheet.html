@@ -310,7 +310,64 @@
 
         <section id="tags">
           <h2 class="title is-4">Tags</h2>
-          <!-- Task 8 -->
+
+          <h3 class="subtitle is-5">Colors</h3>
+          <div class="tags">
+            <span class="tag is-primary">Primary</span>
+            <span class="tag is-link">Link</span>
+            <span class="tag is-info">Info</span>
+            <span class="tag is-success">Success</span>
+            <span class="tag is-warning">Warning</span>
+            <span class="tag is-danger">Danger</span>
+            <span class="tag is-light">Light</span>
+            <span class="tag is-dark">Dark</span>
+          </div>
+
+          <h3 class="subtitle is-5">Sizes</h3>
+          <div class="tags">
+            <span class="tag is-primary is-normal">Normal</span>
+            <span class="tag is-primary is-medium">Medium</span>
+            <span class="tag is-primary is-large">Large</span>
+          </div>
+
+          <h3 class="subtitle is-5">With Delete</h3>
+          <div class="tags">
+            <span class="tag is-success">Complete<a class="tag is-delete"></a></span>
+            <span class="tag is-warning">Pending<a class="tag is-delete"></a></span>
+            <span class="tag is-danger">Error<a class="tag is-delete"></a></span>
+          </div>
+
+          <h3 class="subtitle is-5">Addons</h3>
+          <div class="tags has-addons">
+            <span class="tag is-dark">npm</span>
+            <span class="tag is-info">v1.0.4</span>
+          </div>
+          <div class="tags has-addons">
+            <span class="tag is-dark">build</span>
+            <span class="tag is-success">passing</span>
+          </div>
+
+          <h3 class="subtitle is-5">Grouped Multiline</h3>
+          <div class="field is-grouped is-grouped-multiline">
+            <div class="control">
+              <div class="tags has-addons">
+                <span class="tag is-dark">Tech</span>
+                <span class="tag is-primary">CSS</span>
+              </div>
+            </div>
+            <div class="control">
+              <div class="tags has-addons">
+                <span class="tag is-dark">Tech</span>
+                <span class="tag is-info">Sass</span>
+              </div>
+            </div>
+            <div class="control">
+              <div class="tags has-addons">
+                <span class="tag is-dark">Tech</span>
+                <span class="tag is-success">HTML</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="forms">
@@ -529,7 +586,57 @@
 
         <section id="cards">
           <h2 class="title is-4">Cards</h2>
-          <!-- Task 8 -->
+          <div class="columns">
+            <div class="column is-4">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">Card Header</p>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    Basic card with header, content, and footer. Useful for dashboards and data display.
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item">Save</a>
+                  <a href="#" class="card-footer-item">Edit</a>
+                  <a href="#" class="card-footer-item">Delete</a>
+                </footer>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <div class="has-background-light" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+                      <span class="has-text-grey">4:3 Image</span>
+                    </div>
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="content">
+                    Card with image placeholder. The <code>card-image</code> component fills the card width.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">Metrics</p>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    <p class="title is-3 has-text-centered">1,234</p>
+                    <p class="subtitle is-6 has-text-centered">Active Users</p>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item">View Details</a>
+                </footer>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="dropdowns">
