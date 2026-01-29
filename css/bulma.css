@@ -7561,11 +7561,15 @@ body.has-navbar-fixed-bottom {
 }
 
 a.navbar-item,
+button.navbar-item,
 .navbar-link {
   background-color: hsla(var(--bulma-navbar-h), var(--bulma-navbar-s), calc(var(--bulma-navbar-item-background-l) + var(--bulma-navbar-item-background-l-delta)), var(--bulma-navbar-item-background-a));
   cursor: pointer;
 }
 a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover,
+button.navbar-item:focus,
+button.navbar-item:focus-within,
+button.navbar-item:hover,
 .navbar-link:focus,
 .navbar-link:focus-within,
 .navbar-link:hover {
@@ -7573,11 +7577,14 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover,
   --bulma-navbar-item-background-a: 1;
 }
 a.navbar-item:active,
+button.navbar-item:active,
 .navbar-link:active {
   --bulma-navbar-item-background-l-delta: var(--bulma-navbar-item-active-background-l-delta);
   --bulma-navbar-item-background-a: 1;
 }
 a.navbar-item.is-active, a.navbar-item.is-selected,
+button.navbar-item.is-active,
+button.navbar-item.is-selected,
 .navbar-link.is-active,
 .navbar-link.is-selected {
   --bulma-navbar-h: var(--bulma-navbar-item-selected-h);
