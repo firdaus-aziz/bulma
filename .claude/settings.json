@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build-bulma:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(npm run clean:*)",
+      "Bash(npm install:*)",
+      "Bash(npx sass:*)",
+      "Bash(git fetch upstream:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git merge upstream:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git tag:*)",
+      "Bash(git status:*)",
+      "Bash(git remote:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(ls:*)",
+      "WebSearch"
+    ]
+  }
+}
