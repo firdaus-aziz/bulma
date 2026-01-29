@@ -16,7 +16,7 @@ npm run build-bulma    # Compile Sass → css/bulma.css
 npm run deploy         # Clean + build all + minify all
 ```
 
-Build output goes to `css/` (gitignored).
+Build output goes to `css/` (tracked in git). After Sass changes, run `npm run deploy` and commit the CSS output separately.
 
 ## Architecture
 
@@ -97,6 +97,21 @@ See `SYNC.md` for the monthly sync process. Key points:
 - Cherry-pick relevant fixes, skip docs/branding
 - Rebuild and verify after each sync
 
+### Cherry-Pick Gotchas
+
+- Some upstream PRs only modify compiled CSS, not Sass source. Find the actual Sass variable/mixin to change (e.g., PR #3978 edited `css/bulma.css` but the fix was in `sass/components/dropdown.scss`).
+- Upstream PRs may have missing `@use` imports. Verify the file has the required `@use "sass:*"` declaration (e.g., PR #4006 needed `@use "sass:string"` added).
+- Always run `npm run build-bulma` after each cherry-pick to catch errors before committing.
+
+### Useful Sync Commands
+
+```bash
+gh pr list --repo jgthms/bulma --state open --limit 30 --json number,title,createdAt,changedFiles
+gh pr view <number> --repo jgthms/bulma --json title,body,files,additions,deletions
+gh pr diff <number> --repo jgthms/bulma
+git fetch upstream refs/pull/<number>/head   # Fetch PR branch for cherry-pick
+```
+
 ### Upstream PRs Applied
 
 Cherry-picked from open upstream PRs (not yet merged by maintainer):
@@ -116,13 +131,14 @@ Cherry-picked from open upstream PRs (not yet merged by maintainer):
 
 ## Files Not to Modify
 
-Unless necessary for a bugfix, avoid editing these upstream files:
+Prefer not to edit upstream files. When necessary for bugfixes or Sass compatibility, document the change in the PR table above. Currently modified upstream files:
 
-- `sass/utilities/` — Variable definitions
-- `sass/themes/setup.scss`, `light.scss`, `dark.scss` — Theme internals
-- `sass/elements/`, `sass/form/`, `sass/components/` — Component styles
-
-The one upstream file we modified: `sass/themes/_index.scss` (removed `prefers-color-scheme` media query).
+- `sass/themes/_index.scss` — removed `prefers-color-scheme` media query
+- `sass/components/dropdown.scss` — z-index fix (PR #3978)
+- `sass/utilities/mixins.scss` — media range syntax (PR #3990), `if()` migration (PR #4028)
+- `sass/utilities/functions.scss` — `if()` migration (PR #4028)
+- `sass/utilities/css-variables.scss` — `string.unquote()` migration (PR #4006)
+- `sass/helpers/typography.scss` — `if()` migration (PR #4028)
 
 ## Tech Stack
 
