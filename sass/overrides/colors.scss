@@ -9,6 +9,8 @@
   --bulma-primary-h: 220;
   --bulma-primary-s: 60%;
   --bulma-primary-l: 50%;
+  // Invert: Sass computed dark text for turquoise, but our blue needs white (5.37:1 vs 3.91:1)
+  --bulma-primary-invert-l: var(--bulma-primary-100-l);
 
   // Link: distinguishable from primary
   --bulma-link-h: 229;
@@ -34,4 +36,6 @@
   --bulma-danger-h: 4;
   --bulma-danger-s: 65%;
   --bulma-danger-l: 50%;
+  // Invert: Sass computed dark text for default red, but our red needs white (4.83:1 vs 4.34:1)
+  --bulma-danger-invert-l: var(--bulma-danger-100-l);
 }
