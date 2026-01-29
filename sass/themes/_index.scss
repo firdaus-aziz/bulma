@@ -13,15 +13,8 @@
   @include setup.setup-theme;
 }
 
-// prefers-color-scheme: light
-@include cv.system-theme($name: "light") {
-  @include light.light-theme;
-}
-
-// prefers-color-scheme: dark
-@include cv.system-theme($name: "dark") {
-  @include dark.dark-theme;
-}
+// prefers-color-scheme media queries removed to prevent FOUC (fixes #3880).
+// Dark mode is now ONLY activated via [data-theme="dark"] attribute.
 
 // :root, [data-theme=light], .theme-light
 @include cv.bulma-theme($name: "light") {

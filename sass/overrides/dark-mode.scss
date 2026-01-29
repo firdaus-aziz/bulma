@@ -1,1 +1,26 @@
 // Dark mode fixes and overrides
+
+// Fix #2919: Remove background-color from html to prevent white flash.
+// The body element handles background via Bulma's scheme-main variable.
+html {
+  background-color: transparent;
+}
+
+// Fix #3844: Explicit dark palette overrides
+// Instead of relying on Bulma's automatic inversion, define explicit values
+// for dark mode that produce better contrast and avoid muddy colors.
+[data-theme="dark"] {
+  // Scheme overrides for dark mode
+  --bulma-scheme-main-l: 11%;
+  --bulma-scheme-main-bis-l: 15%;
+  --bulma-scheme-main-ter-l: 19%;
+
+  // Text: higher contrast than Bulma default (71% -> 80%)
+  --bulma-text-l: 80%;
+  --bulma-text-weak-l: 60%;
+  --bulma-text-strong-l: 93%;
+
+  // Border: visible but subtle in dark mode
+  --bulma-border-l: 25%;
+  --bulma-border-weak-l: 20%;
+}
