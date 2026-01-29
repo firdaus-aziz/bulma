@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulma Fork Cheatsheet</title>
+  <link rel="stylesheet" href="../css/bulma.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { padding-top: 3.25rem; }
+    .sidebar { position: sticky; top: 4rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    section { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Navbar -->
+  <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <span class="navbar-item has-text-weight-bold">Bulma Fork Cheatsheet</span>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <button id="dark-toggle" class="button is-small is-light">🌙 Dark</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container is-fluid mt-4">
+    <div class="columns">
+
+      <!-- Sidebar -->
+      <div class="column is-3">
+        <aside class="menu sidebar">
+          <p class="menu-label">Overrides</p>
+          <ul class="menu-list">
+            <li><a href="#color-palette">Color Palette</a></li>
+            <li><a href="#semantic-tokens">Semantic Tokens</a></li>
+            <li><a href="#shadow-scale">Shadow Scale</a></li>
+          </ul>
+          <p class="menu-label">Content</p>
+          <ul class="menu-list">
+            <li><a href="#typography">Typography</a></li>
+          </ul>
+          <p class="menu-label">Elements</p>
+          <ul class="menu-list">
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#tags">Tags</a></li>
+          </ul>
+          <p class="menu-label">Form</p>
+          <ul class="menu-list">
+            <li><a href="#forms">Forms</a></li>
+          </ul>
+          <p class="menu-label">Components</p>
+          <ul class="menu-list">
+            <li><a href="#tables">Tables</a></li>
+            <li><a href="#cards">Cards</a></li>
+            <li><a href="#dropdowns">Dropdowns</a></li>
+            <li><a href="#modals">Modals</a></li>
+            <li><a href="#navbar-demo">Navbar</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#pagination">Pagination</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="column is-9">
+
+        <section id="color-palette">
+          <h2 class="title is-4">Color Palette</h2>
+          <!-- Task 3 -->
+        </section>
+
+        <section id="semantic-tokens">
+          <h2 class="title is-4">Semantic Tokens</h2>
+          <!-- Task 3 -->
+        </section>
+
+        <section id="shadow-scale">
+          <h2 class="title is-4">Shadow Scale</h2>
+          <!-- Task 3 -->
+        </section>
+
+        <section id="typography">
+          <h2 class="title is-4">Typography</h2>
+          <!-- Task 4 -->
+        </section>
+
+        <section id="buttons">
+          <h2 class="title is-4">Buttons</h2>
+          <!-- Task 5 -->
+        </section>
+
+        <section id="tags">
+          <h2 class="title is-4">Tags</h2>
+          <!-- Task 8 -->
+        </section>
+
+        <section id="forms">
+          <h2 class="title is-4">Forms</h2>
+          <!-- Task 6 -->
+        </section>
+
+        <section id="tables">
+          <h2 class="title is-4">Tables</h2>
+          <!-- Task 7 -->
+        </section>
+
+        <section id="cards">
+          <h2 class="title is-4">Cards</h2>
+          <!-- Task 8 -->
+        </section>
+
+        <section id="dropdowns">
+          <h2 class="title is-4">Dropdowns</h2>
+          <!-- Task 9 -->
+        </section>
+
+        <section id="modals">
+          <h2 class="title is-4">Modals</h2>
+          <!-- Task 9 -->
+        </section>
+
+        <section id="navbar-demo">
+          <h2 class="title is-4">Navbar</h2>
+          <!-- Task 10 -->
+        </section>
+
+        <section id="notifications">
+          <h2 class="title is-4">Notifications</h2>
+          <!-- Task 10 -->
+        </section>
+
+        <section id="pagination">
+          <h2 class="title is-4">Pagination</h2>
+          <!-- Task 10 -->
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dark mode toggle
+      const toggle = document.getElementById('dark-toggle');
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      if (saved === 'dark') toggle.textContent = '☀️ Light';
+
+      toggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const next = isDark ? '' : 'dark';
+        if (next) {
+          document.documentElement.setAttribute('data-theme', next);
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        localStorage.setItem('theme', next);
+        toggle.textContent = next === 'dark' ? '☀️ Light' : '🌙 Dark';
+      });
+    });
+  </script>
+
+</body>
+</html>
