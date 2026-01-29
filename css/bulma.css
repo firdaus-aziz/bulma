@@ -3862,8 +3862,16 @@ a.box:active {
 }
 .button.is-rounded {
   border-radius: var(--bulma-radius-rounded);
+}
+.button.is-rounded:not(:has(.icon:only-child)) {
   padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
   padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+}
+@supports not selector(:has(a, b)) {
+  .button.is-rounded {
+    padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+    padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+  }
 }
 
 .buttons {
