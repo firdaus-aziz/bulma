@@ -1,0 +1,8 @@
+// Bulma Fork: Custom overrides
+// This layer applies aesthetic customizations on top of Bulma's base.
+// Keep changes here to minimize upstream merge conflicts.
+
+@forward "colors";
+@forward "shadows";
+@forward "dark-mode";
+@forward "tokens";

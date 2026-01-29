@@ -2,3 +2,6 @@
 
 /*! bulma.io v1.0.4 | MIT License | github.com/jgthms/bulma */
 @use "sass";
+
+// Fork overrides (must be last)
+@use "sass/overrides";
