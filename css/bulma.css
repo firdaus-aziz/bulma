@@ -20693,6 +20693,7 @@ html {
 }
 
 [data-theme=dark] {
+  background-color: var(--bulma-body-background-color);
   --bulma-scheme-main-l: 11%;
   --bulma-scheme-main-bis-l: 15%;
   --bulma-scheme-main-ter-l: 19%;

@@ -10,6 +10,9 @@ html {
 // Instead of relying on Bulma's automatic inversion, define explicit values
 // for dark mode that produce better contrast and avoid muddy colors.
 [data-theme="dark"] {
+  // Restore background that html{background-color:transparent} removed
+  background-color: var(--bulma-body-background-color);
+
   // Scheme overrides for dark mode
   --bulma-scheme-main-l: 11%;
   --bulma-scheme-main-bis-l: 15%;
