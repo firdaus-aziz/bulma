@@ -112,8 +112,7 @@ Cherry-picked from open upstream PRs (not yet merged by maintainer):
 | #3978 | Dropdown z-index fix (renders above navbar) |
 | #3990 | Modern media range syntax for breakpoints |
 | #4006 | Migrate `unquote()` to `string.unquote()` for Dart Sass 3.0 |
-
-**Skipped:** PR #4028 (Sass `if()` syntax) — requires Sass >= 1.95, we use 1.94.2.
+| #4028 | Migrate `if()` to modern CSS syntax for Dart Sass 1.95+ |
 
 ## Files Not to Modify
 
@@ -129,7 +128,7 @@ The one upstream file we modified: `sass/themes/_index.scss` (removed `prefers-c
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Dart Sass | ^1.94 | Sass compiler |
+| Dart Sass | ^1.97 | Sass compiler |
 | PostCSS + cssnano | ^7.1 | CSS minification |
 | Node.js | — | Build runtime |
 
