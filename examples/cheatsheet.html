@@ -641,12 +641,49 @@
 
         <section id="dropdowns">
           <h2 class="title is-4">Dropdowns</h2>
-          <!-- Task 9 -->
+          <div class="dropdown">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>Dropdown button</span>
+                <span class="icon is-small">&#9662;</span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a href="#" class="dropdown-item">Action</a>
+                <a href="#" class="dropdown-item">Another action</a>
+                <a href="#" class="dropdown-item is-active">Active item</a>
+                <hr class="dropdown-divider">
+                <a href="#" class="dropdown-item">Separated link</a>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="modals">
           <h2 class="title is-4">Modals</h2>
-          <!-- Task 9 -->
+          <button class="button is-primary" data-target="demo-modal">Open Modal</button>
+          <div id="demo-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">Modal Title</p>
+                <button class="delete" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+                <div class="content">
+                  <p>This is a modal card. It can contain any content — forms, text, images, or other components.</p>
+                  <p>Press <kbd>Escape</kbd> or click the background to close.</p>
+                </div>
+              </section>
+              <footer class="modal-card-foot">
+                <div class="buttons">
+                  <button class="button is-success">Save</button>
+                  <button class="button">Cancel</button>
+                </div>
+              </footer>
+            </div>
+          </div>
         </section>
 
         <section id="navbar-demo">
@@ -686,6 +723,35 @@
         }
         localStorage.setItem('theme', next);
         toggle.textContent = next === 'dark' ? '☀️ Light' : '🌙 Dark';
+      });
+
+      // Dropdown toggle
+      document.querySelectorAll('.dropdown-trigger button').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          btn.closest('.dropdown').classList.toggle('is-active');
+        });
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown.is-active').forEach(d => d.classList.remove('is-active'));
+      });
+
+      // Modal toggle
+      document.querySelectorAll('[data-target]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = document.getElementById(btn.dataset.target);
+          modal.classList.add('is-active');
+        });
+      });
+      document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete').forEach(el => {
+        el.addEventListener('click', () => {
+          el.closest('.modal').classList.remove('is-active');
+        });
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.is-active').forEach(m => m.classList.remove('is-active'));
+        }
       });
     });
   </script>
