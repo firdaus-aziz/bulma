@@ -1,2 +1,37 @@
 // Color scheme overrides
 // Redefines Bulma's default palette for app UI
+
+// App color palette: less saturated, refined tones for data-dense UI
+// Each color is defined as HSL components to work with Bulma's palette generator
+
+:root {
+  // Primary: muted blue (less saturated than Bulma's default turquoise)
+  --bulma-primary-h: 220;
+  --bulma-primary-s: 60%;
+  --bulma-primary-l: 50%;
+
+  // Link: distinguishable from primary
+  --bulma-link-h: 229;
+  --bulma-link-s: 53%;
+  --bulma-link-l: 53%;
+
+  // Info: calm blue
+  --bulma-info-h: 207;
+  --bulma-info-s: 55%;
+  --bulma-info-l: 50%;
+
+  // Success: muted green
+  --bulma-success-h: 153;
+  --bulma-success-s: 48%;
+  --bulma-success-l: 40%;
+
+  // Warning: warm amber (keep higher saturation for visibility)
+  --bulma-warning-h: 42;
+  --bulma-warning-s: 90%;
+  --bulma-warning-l: 52%;
+
+  // Danger: muted red
+  --bulma-danger-h: 4;
+  --bulma-danger-s: 65%;
+  --bulma-danger-l: 50%;
+}
