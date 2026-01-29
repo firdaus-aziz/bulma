@@ -490,9 +490,6 @@ fieldset[disabled] .file-name, fieldset[disabled] .select select, .select fields
 .pagination-link,
 .pagination-ellipsis, .breadcrumb, .file, .button {
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -1059,8 +1056,16 @@ a.box:active {
 }
 .button.is-rounded {
   border-radius: var(--bulma-radius-rounded);
+}
+.button.is-rounded:not(:has(.icon:only-child)) {
   padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
   padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+}
+@supports not selector(:has(a, b)) {
+  .button.is-rounded {
+    padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+    padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+  }
 }
 
 .buttons {
@@ -1114,7 +1119,7 @@ a.box:active {
   justify-content: flex-end;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .button.is-responsive.is-small {
     font-size: calc(var(--bulma-size-small) * 0.75);
   }
@@ -1129,7 +1134,7 @@ a.box:active {
     font-size: var(--bulma-size-normal);
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .button.is-responsive.is-small {
     font-size: calc(var(--bulma-size-small) * 0.875);
   }
@@ -2674,16 +2679,7 @@ button.tag:active,
   border-radius: var(--bulma-input-radius);
   color: hsl(var(--bulma-input-h), var(--bulma-input-s), var(--bulma-input-color-l));
 }
-.select select::-moz-placeholder, .input::-moz-placeholder, .textarea::-moz-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select::-webkit-input-placeholder, .input::-webkit-input-placeholder, .textarea::-webkit-input-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select:-moz-placeholder, .input:-moz-placeholder, .textarea:-moz-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select:-ms-input-placeholder, .input:-ms-input-placeholder, .textarea:-ms-input-placeholder {
+.select select::placeholder, .input::placeholder, .textarea::placeholder {
   color: var(--bulma-input-placeholder-color);
 }
 .select select:hover, .input:hover, .textarea:hover, .select select.is-hovered, .is-hovered.input, .is-hovered.textarea {
@@ -2702,16 +2698,7 @@ button.tag:active,
   box-shadow: none;
   color: var(--bulma-input-disabled-color);
 }
-.select select[disabled]::-moz-placeholder, [disabled].input::-moz-placeholder, [disabled].textarea::-moz-placeholder, fieldset[disabled] .select select::-moz-placeholder, .select fieldset[disabled] select::-moz-placeholder, fieldset[disabled] .input::-moz-placeholder, fieldset[disabled] .textarea::-moz-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]::-webkit-input-placeholder, [disabled].input::-webkit-input-placeholder, [disabled].textarea::-webkit-input-placeholder, fieldset[disabled] .select select::-webkit-input-placeholder, .select fieldset[disabled] select::-webkit-input-placeholder, fieldset[disabled] .input::-webkit-input-placeholder, fieldset[disabled] .textarea::-webkit-input-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]:-moz-placeholder, [disabled].input:-moz-placeholder, [disabled].textarea:-moz-placeholder, fieldset[disabled] .select select:-moz-placeholder, .select fieldset[disabled] select:-moz-placeholder, fieldset[disabled] .input:-moz-placeholder, fieldset[disabled] .textarea:-moz-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]:-ms-input-placeholder, [disabled].input:-ms-input-placeholder, [disabled].textarea:-ms-input-placeholder, fieldset[disabled] .select select:-ms-input-placeholder, .select fieldset[disabled] select:-ms-input-placeholder, fieldset[disabled] .input:-ms-input-placeholder, fieldset[disabled] .textarea:-ms-input-placeholder {
+.select select[disabled]::placeholder, [disabled].input::placeholder, [disabled].textarea::placeholder, fieldset[disabled] .select select::placeholder, .select fieldset[disabled] select::placeholder, fieldset[disabled] .input::placeholder, fieldset[disabled] .textarea::placeholder {
   color: var(--bulma-input-disabled-placeholder-color);
 }
 
@@ -3529,7 +3516,7 @@ button.tag:active,
 .field.is-grouped.is-grouped-multiline {
   flex-wrap: wrap;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .field.is-horizontal {
     display: flex;
   }
@@ -3538,12 +3525,12 @@ button.tag:active,
 .field-label .label {
   font-size: inherit;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .field-label {
     margin-bottom: 0.5rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .field-label {
     flex-basis: 0;
     flex-grow: 1;
@@ -3571,7 +3558,7 @@ button.tag:active,
 .field-body .field .field {
   margin-bottom: 0;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .field-body {
     display: flex;
     flex-basis: 0;
@@ -3599,9 +3586,11 @@ button.tag:active,
   position: relative;
   text-align: inherit;
 }
-.control.has-icons-left .input:hover ~ .icon,
-.control.has-icons-left .select:hover ~ .icon, .control.has-icons-right .input:hover ~ .icon,
-.control.has-icons-right .select:hover ~ .icon {
+.control.has-icons-left .input:hover ~ .icon, .control.has-icons-left .input:has(select:hover) ~ .icon,
+.control.has-icons-left .select:hover ~ .icon,
+.control.has-icons-left .select:has(select:hover) ~ .icon, .control.has-icons-right .input:hover ~ .icon, .control.has-icons-right .input:has(select:hover) ~ .icon,
+.control.has-icons-right .select:hover ~ .icon,
+.control.has-icons-right .select:has(select:hover) ~ .icon {
   color: var(--bulma-input-icon-hover-color);
 }
 .control.has-icons-left .input:focus ~ .icon,
@@ -3632,6 +3621,18 @@ button.tag:active,
   top: 0;
   width: var(--bulma-input-height);
   z-index: 4;
+}
+.control.has-icons-left .icon.is-small, .control.has-icons-right .icon.is-small {
+  height: var(--bulma-icon-dimensions-small);
+  width: var(--bulma-icon-dimensions-small);
+}
+.control.has-icons-left .icon.is-medium, .control.has-icons-right .icon.is-medium {
+  height: var(--bulma-icon-dimensions-medium);
+  width: var(--bulma-icon-dimensions-medium);
+}
+.control.has-icons-left .icon.is-large, .control.has-icons-right .icon.is-large {
+  height: var(--bulma-icon-dimensions-large);
+  width: var(--bulma-icon-dimensions-large);
 }
 .control.has-icons-left .input,
 .control.has-icons-left .select select {
@@ -3867,7 +3868,7 @@ button.tag:active,
   --bulma-dropdown-content-padding-top: 0.5rem;
   --bulma-dropdown-content-radius: var(--bulma-radius);
   --bulma-dropdown-content-shadow: var(--bulma-shadow);
-  --bulma-dropdown-content-z: 20;
+  --bulma-dropdown-content-z: 35;
   --bulma-dropdown-item-h: var(--bulma-scheme-h);
   --bulma-dropdown-item-s: var(--bulma-scheme-s);
   --bulma-dropdown-item-l: var(--bulma-scheme-main-l);
@@ -4280,7 +4281,7 @@ button.dropdown-item.is-selected {
   position: relative;
   width: 100%;
 }
-@media screen and (min-width: 769px) {
+@media screen and (width >= 769px) {
   .modal-content,
   .modal-card {
     margin: 0 auto;
@@ -4758,11 +4759,15 @@ body.has-navbar-fixed-bottom {
 }
 
 a.navbar-item,
+button.navbar-item,
 .navbar-link {
   background-color: hsla(var(--bulma-navbar-h), var(--bulma-navbar-s), calc(var(--bulma-navbar-item-background-l) + var(--bulma-navbar-item-background-l-delta)), var(--bulma-navbar-item-background-a));
   cursor: pointer;
 }
 a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover,
+button.navbar-item:focus,
+button.navbar-item:focus-within,
+button.navbar-item:hover,
 .navbar-link:focus,
 .navbar-link:focus-within,
 .navbar-link:hover {
@@ -4770,11 +4775,14 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover,
   --bulma-navbar-item-background-a: 1;
 }
 a.navbar-item:active,
+button.navbar-item:active,
 .navbar-link:active {
   --bulma-navbar-item-background-l-delta: var(--bulma-navbar-item-active-background-l-delta);
   --bulma-navbar-item-background-a: 1;
 }
 a.navbar-item.is-active, a.navbar-item.is-selected,
+button.navbar-item.is-active,
+button.navbar-item.is-selected,
 .navbar-link.is-active,
 .navbar-link.is-selected {
   --bulma-navbar-h: var(--bulma-navbar-item-selected-h);
@@ -4854,7 +4862,7 @@ a.navbar-item.is-active, a.navbar-item.is-selected,
   margin: 0.5rem 0;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .navbar > .container {
     display: block;
   }
@@ -4903,7 +4911,7 @@ a.navbar-item.is-active, a.navbar-item.is-selected,
     padding-bottom: var(--bulma-navbar-height);
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .navbar,
   .navbar-menu,
   .navbar-start,
@@ -5229,7 +5237,7 @@ a.navbar-item.is-active, a.navbar-item.is-selected,
   list-style: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .pagination {
     flex-wrap: wrap;
   }
@@ -5243,7 +5251,7 @@ a.navbar-item.is-active, a.navbar-item.is-selected,
     flex-shrink: 1;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .pagination-list {
     flex-grow: 1;
     flex-shrink: 1;
@@ -5841,7 +5849,7 @@ label.panel-block:hover {
 .columns.is-mobile > .column.is-offset-12 {
   margin-inline-start: 100%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .column.is-narrow-mobile {
     flex: none;
     width: unset;
@@ -6005,7 +6013,7 @@ label.panel-block:hover {
     margin-inline-start: 100%;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .column.is-narrow, .column.is-narrow-tablet {
     flex: none;
     width: unset;
@@ -6169,7 +6177,7 @@ label.panel-block:hover {
     margin-inline-start: 100%;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .column.is-narrow-touch {
     flex: none;
     width: unset;
@@ -6333,7 +6341,7 @@ label.panel-block:hover {
     margin-inline-start: 100%;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .column.is-narrow-desktop {
     flex: none;
     width: unset;
@@ -6497,7 +6505,7 @@ label.panel-block:hover {
     margin-inline-start: 100%;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .column.is-narrow-widescreen {
     flex: none;
     width: unset;
@@ -6661,7 +6669,7 @@ label.panel-block:hover {
     margin-inline-start: 100%;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .column.is-narrow-fullhd {
     flex: none;
     width: unset;
@@ -6864,12 +6872,12 @@ label.panel-block:hover {
 .columns.is-vcentered {
   align-items: center;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns:not(.is-desktop) {
     display: flex;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-desktop {
     display: flex;
   }
@@ -6877,47 +6885,47 @@ label.panel-block:hover {
 .columns.is-0 {
   --bulma-column-gap: 0rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-0-mobile {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-0-tablet {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-0-tablet-only {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-0-touch {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-0-desktop {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-0-desktop-only {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-0-widescreen {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-0-widescreen-only {
     --bulma-column-gap: 0rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-0-fullhd {
     --bulma-column-gap: 0rem;
   }
@@ -6925,47 +6933,47 @@ label.panel-block:hover {
 .columns.is-1 {
   --bulma-column-gap: 0.25rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-1-mobile {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-1-tablet {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-1-tablet-only {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-1-touch {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-1-desktop {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-1-desktop-only {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-1-widescreen {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-1-widescreen-only {
     --bulma-column-gap: 0.25rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-1-fullhd {
     --bulma-column-gap: 0.25rem;
   }
@@ -6973,47 +6981,47 @@ label.panel-block:hover {
 .columns.is-2 {
   --bulma-column-gap: 0.5rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-2-mobile {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-2-tablet {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-2-tablet-only {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-2-touch {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-2-desktop {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-2-desktop-only {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-2-widescreen {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-2-widescreen-only {
     --bulma-column-gap: 0.5rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-2-fullhd {
     --bulma-column-gap: 0.5rem;
   }
@@ -7021,47 +7029,47 @@ label.panel-block:hover {
 .columns.is-3 {
   --bulma-column-gap: 0.75rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-3-mobile {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-3-tablet {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-3-tablet-only {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-3-touch {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-3-desktop {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-3-desktop-only {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-3-widescreen {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-3-widescreen-only {
     --bulma-column-gap: 0.75rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-3-fullhd {
     --bulma-column-gap: 0.75rem;
   }
@@ -7069,47 +7077,47 @@ label.panel-block:hover {
 .columns.is-4 {
   --bulma-column-gap: 1rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-4-mobile {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-4-tablet {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-4-tablet-only {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-4-touch {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-4-desktop {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-4-desktop-only {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-4-widescreen {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-4-widescreen-only {
     --bulma-column-gap: 1rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-4-fullhd {
     --bulma-column-gap: 1rem;
   }
@@ -7117,47 +7125,47 @@ label.panel-block:hover {
 .columns.is-5 {
   --bulma-column-gap: 1.25rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-5-mobile {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-5-tablet {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-5-tablet-only {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-5-touch {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-5-desktop {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-5-desktop-only {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-5-widescreen {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-5-widescreen-only {
     --bulma-column-gap: 1.25rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-5-fullhd {
     --bulma-column-gap: 1.25rem;
   }
@@ -7165,47 +7173,47 @@ label.panel-block:hover {
 .columns.is-6 {
   --bulma-column-gap: 1.5rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-6-mobile {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-6-tablet {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-6-tablet-only {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-6-touch {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-6-desktop {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-6-desktop-only {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-6-widescreen {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-6-widescreen-only {
     --bulma-column-gap: 1.5rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-6-fullhd {
     --bulma-column-gap: 1.5rem;
   }
@@ -7213,47 +7221,47 @@ label.panel-block:hover {
 .columns.is-7 {
   --bulma-column-gap: 1.75rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-7-mobile {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-7-tablet {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-7-tablet-only {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-7-touch {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-7-desktop {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-7-desktop-only {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-7-widescreen {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-7-widescreen-only {
     --bulma-column-gap: 1.75rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-7-fullhd {
     --bulma-column-gap: 1.75rem;
   }
@@ -7261,47 +7269,47 @@ label.panel-block:hover {
 .columns.is-8 {
   --bulma-column-gap: 2rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .columns.is-8-mobile {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .columns.is-8-tablet {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .columns.is-8-tablet-only {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .columns.is-8-touch {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .columns.is-8-desktop {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .columns.is-8-desktop-only {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .columns.is-8-widescreen {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .columns.is-8-widescreen-only {
     --bulma-column-gap: 2rem;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .columns.is-8-fullhd {
     --bulma-column-gap: 2rem;
   }
@@ -7352,7 +7360,7 @@ label.panel-block:hover {
 .fixed-grid.has-12-cols > .grid {
   --bulma-grid-column-count: 12;
 }
-@container bulma-fixed-grid (max-width: 768px) {
+@container bulma-fixed-grid (width < 769px) {
   .fixed-grid.has-1-cols-mobile > .grid {
     --bulma-grid-column-count: 1;
   }
@@ -7390,7 +7398,7 @@ label.panel-block:hover {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (min-width: 769px) {
+@container bulma-fixed-grid (width >= 769px) {
   .fixed-grid.has-1-cols-tablet > .grid {
     --bulma-grid-column-count: 1;
   }
@@ -7428,7 +7436,7 @@ label.panel-block:hover {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (min-width: 1024px) {
+@container bulma-fixed-grid (width >= 1024px) {
   .fixed-grid.has-1-cols-desktop > .grid {
     --bulma-grid-column-count: 1;
   }
@@ -7466,7 +7474,7 @@ label.panel-block:hover {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (min-width: 1216px) {
+@container bulma-fixed-grid (width >= 1216px) {
   .fixed-grid.has-1-cols-widescreen > .grid {
     --bulma-grid-column-count: 1;
   }
@@ -7504,7 +7512,7 @@ label.panel-block:hover {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (min-width: 1408px) {
+@container bulma-fixed-grid (width >= 1408px) {
   .fixed-grid.has-1-cols-fullhd > .grid {
     --bulma-grid-column-count: 1;
   }
@@ -7542,27 +7550,27 @@ label.panel-block:hover {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (max-width: 768px) {
+@container bulma-fixed-grid (width < 769px) {
   .fixed-grid.has-auto-count .grid {
     --bulma-grid-column-count: 2;
   }
 }
-@container bulma-fixed-grid (min-width: 769px) {
+@container bulma-fixed-grid (width >= 769px) {
   .fixed-grid.has-auto-count .grid {
     --bulma-grid-column-count: 4;
   }
 }
-@container bulma-fixed-grid (min-width: 1024px) {
+@container bulma-fixed-grid (width >= 1024px) {
   .fixed-grid.has-auto-count .grid {
     --bulma-grid-column-count: 8;
   }
 }
-@container bulma-fixed-grid (min-width: 1216px) {
+@container bulma-fixed-grid (width >= 1216px) {
   .fixed-grid.has-auto-count .grid {
     --bulma-grid-column-count: 12;
   }
 }
-@container bulma-fixed-grid (min-width: 1408px) {
+@container bulma-fixed-grid (width >= 1408px) {
   .fixed-grid.has-auto-count .grid {
     --bulma-grid-column-count: 16;
   }
@@ -7980,7 +7988,7 @@ label.panel-block:hover {
 .cell.is-row-span-12 {
   --bulma-grid-cell-row-span: 12;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .cell.is-col-start-1-mobile {
     --bulma-grid-cell-column-start: 1;
   }
@@ -8270,7 +8278,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .cell.is-col-start-1-tablet {
     --bulma-grid-cell-column-start: 1;
   }
@@ -8560,7 +8568,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .cell.is-col-start-1-tablet-only {
     --bulma-grid-cell-column-start: 1;
   }
@@ -8850,7 +8858,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .cell.is-col-start-1-desktop {
     --bulma-grid-cell-column-start: 1;
   }
@@ -9140,7 +9148,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .cell.is-col-start-1-desktop-only {
     --bulma-grid-cell-column-start: 1;
   }
@@ -9430,7 +9438,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .cell.is-col-start-1-widescreen {
     --bulma-grid-cell-column-start: 1;
   }
@@ -9720,7 +9728,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .cell.is-col-start-1-widescreen-only {
     --bulma-grid-cell-column-start: 1;
   }
@@ -10010,7 +10018,7 @@ label.panel-block:hover {
     --bulma-grid-cell-row-span: 12;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .cell.is-col-start-1-fullhd {
     --bulma-grid-cell-column-start: 1;
   }
@@ -10317,27 +10325,27 @@ label.panel-block:hover {
 .container.is-max-tablet {
   max-width: 705px;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .container {
     max-width: 960px;
   }
 }
-@media screen and (max-width: 1215px) {
+@media screen and (width < 1216px) {
   .container.is-widescreen:not(.is-max-tablet):not(.is-max-desktop) {
     max-width: 1152px;
   }
 }
-@media screen and (max-width: 1407px) {
+@media screen and (width < 1408px) {
   .container.is-fullhd:not(.is-max-tablet):not(.is-max-desktop):not(.is-max-widescreen) {
     max-width: 1344px;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .container:not(.is-max-tablet):not(.is-max-desktop) {
     max-width: 1152px;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .container:not(.is-max-tablet):not(.is-max-desktop):not(.is-max-widescreen) {
     max-width: 1344px;
   }
@@ -10406,7 +10414,7 @@ label.panel-block:hover {
 .hero.is-white.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-white.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10443,7 +10451,7 @@ label.panel-block:hover {
 .hero.is-black.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-black.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10480,7 +10488,7 @@ label.panel-block:hover {
 .hero.is-light.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-light.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10517,7 +10525,7 @@ label.panel-block:hover {
 .hero.is-dark.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-dark.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10554,7 +10562,7 @@ label.panel-block:hover {
 .hero.is-text.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-text.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10591,7 +10599,7 @@ label.panel-block:hover {
 .hero.is-primary.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-primary.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10628,7 +10636,7 @@ label.panel-block:hover {
 .hero.is-link.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-link.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10665,7 +10673,7 @@ label.panel-block:hover {
 .hero.is-info.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-info.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10702,7 +10710,7 @@ label.panel-block:hover {
 .hero.is-success.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-success.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10739,7 +10747,7 @@ label.panel-block:hover {
 .hero.is-warning.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-warning.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10776,7 +10784,7 @@ label.panel-block:hover {
 .hero.is-danger.is-bold {
   background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-background-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero.is-danger.is-bold .navbar-menu {
     background-image: linear-gradient(141deg, hsl(calc(var(--bulma-hero-h) - 5deg), calc(var(--bulma-hero-s) + 10%), calc(var(--bulma-hero-background-l) + 5%)) 0%, hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l)) 71%, hsl(calc(var(--bulma-hero-h) + 5deg), calc(var(--bulma-hero-s) - 10%), calc(var(--bulma-hero-background-l) - 5%)) 100%);
   }
@@ -10784,12 +10792,12 @@ label.panel-block:hover {
 .hero.is-small .hero-body {
   padding: var(--bulma-hero-body-padding-small);
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .hero.is-medium .hero-body {
     padding: var(--bulma-hero-body-padding-medium);
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .hero.is-large .hero-body {
     padding: var(--bulma-hero-body-padding-large);
   }
@@ -10823,7 +10831,7 @@ label.panel-block:hover {
 .hero-video.is-transparent {
   opacity: 0.3;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero-video {
     display: none;
   }
@@ -10832,7 +10840,7 @@ label.panel-block:hover {
 .hero-buttons {
   margin-top: 1.5rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .hero-buttons .button {
     display: flex;
   }
@@ -10840,7 +10848,7 @@ label.panel-block:hover {
     margin-bottom: 0.75rem;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .hero-buttons {
     display: flex;
     justify-content: center;
@@ -10861,7 +10869,7 @@ label.panel-block:hover {
   flex-shrink: 0;
   padding: var(--bulma-hero-body-padding);
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .hero-body {
     padding: var(--bulma-hero-body-padding-tablet);
   }
@@ -10893,7 +10901,7 @@ label.panel-block:hover {
 .level.is-mobile .level-item:not(.is-narrow) {
   flex-grow: 1;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .level {
     display: flex;
     flex-direction: row;
@@ -10934,7 +10942,7 @@ label.panel-block:hover {
   flex-direction: column;
   justify-content: flex-start;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .level-left {
     flex-direction: row;
   }
@@ -10946,7 +10954,7 @@ label.panel-block:hover {
   flex-direction: column;
   justify-content: flex-end;
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .level-right {
     flex-direction: row;
   }
@@ -11019,7 +11027,7 @@ label.panel-block:hover {
   text-align: inherit;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .media-content {
     overflow-x: auto;
   }
@@ -11031,7 +11039,7 @@ label.panel-block:hover {
   --bulma-section-padding-large: 18rem 6rem;
   padding: var(--bulma-section-padding);
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .section {
     padding: var(--bulma-section-padding-desktop);
   }
@@ -11089,20 +11097,8 @@ input.is-skeleton,
 textarea.is-skeleton {
   resize: none;
 }
-input.is-skeleton::-moz-placeholder,
-textarea.is-skeleton::-moz-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton::-webkit-input-placeholder,
-textarea.is-skeleton::-webkit-input-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton:-moz-placeholder,
-textarea.is-skeleton:-moz-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton:-ms-input-placeholder,
-textarea.is-skeleton:-ms-input-placeholder {
+input.is-skeleton::placeholder,
+textarea.is-skeleton::placeholder {
   color: transparent !important;
 }
 
@@ -17864,7 +17860,7 @@ has-background-danger.is-hoverable:active {
   font-size: 0.75rem !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-size-1-mobile {
     font-size: 3rem !important;
   }
@@ -17887,7 +17883,7 @@ has-background-danger.is-hoverable:active {
     font-size: 0.75rem !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-size-1-tablet {
     font-size: 3rem !important;
   }
@@ -17910,7 +17906,7 @@ has-background-danger.is-hoverable:active {
     font-size: 0.75rem !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-size-1-touch {
     font-size: 3rem !important;
   }
@@ -17933,7 +17929,7 @@ has-background-danger.is-hoverable:active {
     font-size: 0.75rem !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-size-1-desktop {
     font-size: 3rem !important;
   }
@@ -17956,7 +17952,7 @@ has-background-danger.is-hoverable:active {
     font-size: 0.75rem !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-size-1-widescreen {
     font-size: 3rem !important;
   }
@@ -17979,7 +17975,7 @@ has-background-danger.is-hoverable:active {
     font-size: 0.75rem !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-size-1-fullhd {
     font-size: 3rem !important;
   }
@@ -18018,182 +18014,182 @@ has-background-danger.is-hoverable:active {
   text-align: right !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .has-text-centered-mobile {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .has-text-centered-tablet {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .has-text-centered-tablet-only {
     text-align: center !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .has-text-centered-touch {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .has-text-centered-desktop {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .has-text-centered-desktop-only {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .has-text-centered-widescreen {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .has-text-centered-widescreen-only {
     text-align: center !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .has-text-centered-fullhd {
     text-align: center !important;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .has-text-justified-mobile {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .has-text-justified-tablet {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .has-text-justified-tablet-only {
     text-align: justify !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .has-text-justified-touch {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .has-text-justified-desktop {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .has-text-justified-desktop-only {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .has-text-justified-widescreen {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .has-text-justified-widescreen-only {
     text-align: justify !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .has-text-justified-fullhd {
     text-align: justify !important;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .has-text-left-mobile {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .has-text-left-tablet {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .has-text-left-tablet-only {
     text-align: left !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .has-text-left-touch {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .has-text-left-desktop {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .has-text-left-desktop-only {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .has-text-left-widescreen {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .has-text-left-widescreen-only {
     text-align: left !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .has-text-left-fullhd {
     text-align: left !important;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .has-text-right-mobile {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .has-text-right-tablet {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .has-text-right-tablet-only {
     text-align: right !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .has-text-right-touch {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .has-text-right-desktop {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .has-text-right-desktop-only {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .has-text-right-widescreen {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .has-text-right-widescreen-only {
     text-align: right !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .has-text-right-fullhd {
     text-align: right !important;
   }
@@ -18272,55 +18268,55 @@ has-background-danger.is-hoverable:active {
   display: block !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-block-mobile,
   .is-block-mobile {
     display: block !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-block-tablet,
   .is-block-tablet {
     display: block !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-block-tablet-only,
   .is-block-tablet-only {
     display: block !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-block-touch,
   .is-block-touch {
     display: block !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-block-desktop,
   .is-block-desktop {
     display: block !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-block-desktop-only,
   .is-block-desktop-only {
     display: block !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-block-widescreen,
   .is-block-widescreen {
     display: block !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-block-widescreen-only,
   .is-block-widescreen-only {
     display: block !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-block-fullhd,
   .is-block-fullhd {
     display: block !important;
@@ -18331,55 +18327,55 @@ has-background-danger.is-hoverable:active {
   display: flex !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-flex-mobile,
   .is-flex-mobile {
     display: flex !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-flex-tablet,
   .is-flex-tablet {
     display: flex !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-flex-tablet-only,
   .is-flex-tablet-only {
     display: flex !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-flex-touch,
   .is-flex-touch {
     display: flex !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-flex-desktop,
   .is-flex-desktop {
     display: flex !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-flex-desktop-only,
   .is-flex-desktop-only {
     display: flex !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-flex-widescreen,
   .is-flex-widescreen {
     display: flex !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-flex-widescreen-only,
   .is-flex-widescreen-only {
     display: flex !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-flex-fullhd,
   .is-flex-fullhd {
     display: flex !important;
@@ -18390,55 +18386,55 @@ has-background-danger.is-hoverable:active {
   display: inline !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-inline-mobile,
   .is-inline-mobile {
     display: inline !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-inline-tablet,
   .is-inline-tablet {
     display: inline !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-inline-tablet-only,
   .is-inline-tablet-only {
     display: inline !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-inline-touch,
   .is-inline-touch {
     display: inline !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-inline-desktop,
   .is-inline-desktop {
     display: inline !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-inline-desktop-only,
   .is-inline-desktop-only {
     display: inline !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-inline-widescreen,
   .is-inline-widescreen {
     display: inline !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-inline-widescreen-only,
   .is-inline-widescreen-only {
     display: inline !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-inline-fullhd,
   .is-inline-fullhd {
     display: inline !important;
@@ -18449,55 +18445,55 @@ has-background-danger.is-hoverable:active {
   display: inline-block !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-inline-block-mobile,
   .is-inline-block-mobile {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-inline-block-tablet,
   .is-inline-block-tablet {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-inline-block-tablet-only,
   .is-inline-block-tablet-only {
     display: inline-block !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-inline-block-touch,
   .is-inline-block-touch {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-inline-block-desktop,
   .is-inline-block-desktop {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-inline-block-desktop-only,
   .is-inline-block-desktop-only {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-inline-block-widescreen,
   .is-inline-block-widescreen {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-inline-block-widescreen-only,
   .is-inline-block-widescreen-only {
     display: inline-block !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-inline-block-fullhd,
   .is-inline-block-fullhd {
     display: inline-block !important;
@@ -18508,55 +18504,55 @@ has-background-danger.is-hoverable:active {
   display: inline-flex !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-inline-flex-mobile,
   .is-inline-flex-mobile {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-inline-flex-tablet,
   .is-inline-flex-tablet {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-inline-flex-tablet-only,
   .is-inline-flex-tablet-only {
     display: inline-flex !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-inline-flex-touch,
   .is-inline-flex-touch {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-inline-flex-desktop,
   .is-inline-flex-desktop {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-inline-flex-desktop-only,
   .is-inline-flex-desktop-only {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-inline-flex-widescreen,
   .is-inline-flex-widescreen {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-inline-flex-widescreen-only,
   .is-inline-flex-widescreen-only {
     display: inline-flex !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-inline-flex-fullhd,
   .is-inline-flex-fullhd {
     display: inline-flex !important;
@@ -18567,55 +18563,55 @@ has-background-danger.is-hoverable:active {
   display: grid !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-grid-mobile,
   .is-grid-mobile {
     display: grid !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-grid-tablet,
   .is-grid-tablet {
     display: grid !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-grid-tablet-only,
   .is-grid-tablet-only {
     display: grid !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-grid-touch,
   .is-grid-touch {
     display: grid !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-grid-desktop,
   .is-grid-desktop {
     display: grid !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-grid-desktop-only,
   .is-grid-desktop-only {
     display: grid !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-grid-widescreen,
   .is-grid-widescreen {
     display: grid !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-grid-widescreen-only,
   .is-grid-widescreen-only {
     display: grid !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-grid-fullhd,
   .is-grid-fullhd {
     display: grid !important;
@@ -18632,55 +18628,55 @@ has-background-danger.is-hoverable:active {
   width: 0.01em !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-display-none-mobile,
   .is-hidden-mobile {
     display: none !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-display-none-tablet,
   .is-hidden-tablet {
     display: none !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-display-none-tablet-only,
   .is-hidden-tablet-only {
     display: none !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-display-none-touch,
   .is-hidden-touch {
     display: none !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-display-none-desktop,
   .is-hidden-desktop {
     display: none !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-display-none-desktop-only,
   .is-hidden-desktop-only {
     display: none !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-display-none-widescreen,
   .is-hidden-widescreen {
     display: none !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-display-none-widescreen-only,
   .is-hidden-widescreen-only {
     display: none !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-display-none-fullhd,
   .is-hidden-fullhd {
     display: none !important;
@@ -18691,55 +18687,55 @@ has-background-danger.is-hoverable:active {
   visibility: hidden !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width < 769px) {
   .is-visibility-hidden-mobile,
   .is-invisible-mobile {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 769px), print {
+@media screen and (width >= 769px), print {
   .is-visibility-hidden-tablet,
   .is-invisible-tablet {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1023px) {
+@media screen and (769px <= width < 1024px) {
   .is-visibility-hidden-tablet-only,
   .is-invisible-tablet-only {
     visibility: hidden !important;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (width < 1024px) {
   .is-visibility-hidden-touch,
   .is-invisible-touch {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   .is-visibility-hidden-desktop,
   .is-invisible-desktop {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 1024px) and (max-width: 1215px) {
+@media screen and (1024px <= width < 1216px) {
   .is-visibility-hidden-desktop-only,
   .is-invisible-desktop-only {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 1216px) {
+@media screen and (width >= 1216px) {
   .is-visibility-hidden-widescreen,
   .is-invisible-widescreen {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 1216px) and (max-width: 1407px) {
+@media screen and (1216px <= width < 1408px) {
   .is-visibility-hidden-widescreen-only,
   .is-invisible-widescreen-only {
     visibility: hidden !important;
   }
 }
-@media screen and (min-width: 1408px) {
+@media screen and (width >= 1408px) {
   .is-visibility-hidden-fullhd,
   .is-invisible-fullhd {
     visibility: hidden !important;
