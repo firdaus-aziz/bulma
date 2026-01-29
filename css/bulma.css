@@ -6402,9 +6402,11 @@ button.tag:active,
   position: relative;
   text-align: inherit;
 }
-.control.has-icons-left .input:hover ~ .icon,
-.control.has-icons-left .select:hover ~ .icon, .control.has-icons-right .input:hover ~ .icon,
-.control.has-icons-right .select:hover ~ .icon {
+.control.has-icons-left .input:hover ~ .icon, .control.has-icons-left .input:has(select:hover) ~ .icon,
+.control.has-icons-left .select:hover ~ .icon,
+.control.has-icons-left .select:has(select:hover) ~ .icon, .control.has-icons-right .input:hover ~ .icon, .control.has-icons-right .input:has(select:hover) ~ .icon,
+.control.has-icons-right .select:hover ~ .icon,
+.control.has-icons-right .select:has(select:hover) ~ .icon {
   color: var(--bulma-input-icon-hover-color);
 }
 .control.has-icons-left .input:focus ~ .icon,
