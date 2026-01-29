@@ -109,6 +109,9 @@ Cherry-picked from open upstream PRs (not yet merged by maintainer):
 | #3839 | Rounded button proportions |
 | #3931 | Remove vendor prefixes |
 | #3952 | Remove outdated deps |
+| #3978 | Dropdown z-index fix (renders above navbar) |
+| #3990 | Modern media range syntax for breakpoints |
+| #4006 | Migrate `unquote()` to `string.unquote()` for Dart Sass 3.0 |
 
 **Skipped:** PR #4028 (Sass `if()` syntax) — requires Sass >= 1.95, we use 1.94.2.
 
