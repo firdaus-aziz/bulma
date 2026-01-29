@@ -69,17 +69,148 @@
 
         <section id="color-palette">
           <h2 class="title is-4">Color Palette</h2>
-          <!-- Task 3 -->
+          <div class="columns is-multiline">
+            <div class="column is-narrow">
+              <div class="has-background-primary" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">primary</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-link" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">link</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-info" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">info</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-success" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">success</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-warning" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-dark">warning</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-danger" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">danger</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-white" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ddd">
+                <span class="has-text-dark">white</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-black" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">black</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-light" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-dark">light</span>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <div class="has-background-dark" style="width:80px;height:80px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center">
+                <span class="has-text-white">dark</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="semantic-tokens">
           <h2 class="title is-4">Semantic Tokens</h2>
-          <!-- Task 3 -->
+
+          <h3 class="subtitle is-5">Surface Tokens</h3>
+          <div class="columns">
+            <div class="column is-4">
+              <div class="box" style="background:var(--app-surface-0);min-height:60px">
+                <code>--app-surface-0</code>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="box" style="background:var(--app-surface-1);min-height:60px">
+                <code>--app-surface-1</code>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="box" style="background:var(--app-surface-2);min-height:60px">
+                <code>--app-surface-2</code>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="subtitle is-5">Text Tokens</h3>
+          <div class="columns">
+            <div class="column is-4">
+              <p style="color:var(--app-text-muted)"><code>--app-text-muted</code> — Muted text</p>
+            </div>
+            <div class="column is-4">
+              <p style="color:var(--app-text-default)"><code>--app-text-default</code> — Default text</p>
+            </div>
+            <div class="column is-4">
+              <p style="color:var(--app-text-emphasis)"><code>--app-text-emphasis</code> — Emphasis text</p>
+            </div>
+          </div>
+
+          <h3 class="subtitle is-5">Border Tokens</h3>
+          <div class="columns">
+            <div class="column is-6">
+              <div class="box" style="border:2px solid var(--app-border);min-height:50px">
+                <code>--app-border</code>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="box" style="border:2px solid var(--app-border-subtle);min-height:50px">
+                <code>--app-border-subtle</code>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="subtitle is-5">Interactive Tokens</h3>
+          <div class="columns">
+            <div class="column is-6">
+              <div class="box" style="outline:3px solid var(--app-focus-ring);outline-offset:2px;min-height:50px">
+                <code>--app-focus-ring</code>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="box" style="background:var(--app-hover-bg);min-height:50px">
+                <code>--app-hover-bg</code>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="shadow-scale">
           <h2 class="title is-4">Shadow Scale</h2>
-          <!-- Task 3 -->
+          <div class="columns">
+            <div class="column is-3">
+              <div class="box" style="box-shadow:var(--bulma-shadow-sm)">
+                <p class="has-text-centered"><code>shadow-sm</code></p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box" style="box-shadow:var(--bulma-shadow-md)">
+                <p class="has-text-centered"><code>shadow-md</code></p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box" style="box-shadow:var(--bulma-shadow-lg)">
+                <p class="has-text-centered"><code>shadow-lg</code></p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box" style="box-shadow:var(--bulma-shadow-xl)">
+                <p class="has-text-centered"><code>shadow-xl</code></p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="typography">
