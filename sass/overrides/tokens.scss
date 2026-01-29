@@ -1,1 +1,24 @@
 // Semantic design tokens (surface, border, muted text, etc.)
+
+// Semantic design tokens for app UI.
+// These extend Bulma's variable system with app-specific abstractions.
+
+:root {
+  // Surfaces: layered backgrounds for cards, modals, dropdowns
+  --app-surface-0: var(--bulma-scheme-main);
+  --app-surface-1: var(--bulma-scheme-main-bis);
+  --app-surface-2: var(--bulma-scheme-main-ter);
+
+  // Text
+  --app-text-muted: var(--bulma-text-weak);
+  --app-text-default: var(--bulma-text);
+  --app-text-emphasis: var(--bulma-text-strong);
+
+  // Borders
+  --app-border: var(--bulma-border);
+  --app-border-subtle: var(--bulma-border-weak);
+
+  // Interactive states
+  --app-focus-ring: var(--bulma-link);
+  --app-hover-bg: var(--bulma-scheme-main-bis);
+}
