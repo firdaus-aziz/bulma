@@ -3293,9 +3293,6 @@ fieldset[disabled] .file-name, fieldset[disabled] .select select, .select fields
 .pagination-link,
 .pagination-ellipsis, .breadcrumb, .file, .button {
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -5485,16 +5482,7 @@ button.tag:active,
   border-radius: var(--bulma-input-radius);
   color: hsl(var(--bulma-input-h), var(--bulma-input-s), var(--bulma-input-color-l));
 }
-.select select::-moz-placeholder, .input::-moz-placeholder, .textarea::-moz-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select::-webkit-input-placeholder, .input::-webkit-input-placeholder, .textarea::-webkit-input-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select:-moz-placeholder, .input:-moz-placeholder, .textarea:-moz-placeholder {
-  color: var(--bulma-input-placeholder-color);
-}
-.select select:-ms-input-placeholder, .input:-ms-input-placeholder, .textarea:-ms-input-placeholder {
+.select select::placeholder, .input::placeholder, .textarea::placeholder {
   color: var(--bulma-input-placeholder-color);
 }
 .select select:hover, .input:hover, .textarea:hover, .select select.is-hovered, .is-hovered.input, .is-hovered.textarea {
@@ -5513,16 +5501,7 @@ button.tag:active,
   box-shadow: none;
   color: var(--bulma-input-disabled-color);
 }
-.select select[disabled]::-moz-placeholder, [disabled].input::-moz-placeholder, [disabled].textarea::-moz-placeholder, fieldset[disabled] .select select::-moz-placeholder, .select fieldset[disabled] select::-moz-placeholder, fieldset[disabled] .input::-moz-placeholder, fieldset[disabled] .textarea::-moz-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]::-webkit-input-placeholder, [disabled].input::-webkit-input-placeholder, [disabled].textarea::-webkit-input-placeholder, fieldset[disabled] .select select::-webkit-input-placeholder, .select fieldset[disabled] select::-webkit-input-placeholder, fieldset[disabled] .input::-webkit-input-placeholder, fieldset[disabled] .textarea::-webkit-input-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]:-moz-placeholder, [disabled].input:-moz-placeholder, [disabled].textarea:-moz-placeholder, fieldset[disabled] .select select:-moz-placeholder, .select fieldset[disabled] select:-moz-placeholder, fieldset[disabled] .input:-moz-placeholder, fieldset[disabled] .textarea:-moz-placeholder {
-  color: var(--bulma-input-disabled-placeholder-color);
-}
-.select select[disabled]:-ms-input-placeholder, [disabled].input:-ms-input-placeholder, [disabled].textarea:-ms-input-placeholder, fieldset[disabled] .select select:-ms-input-placeholder, .select fieldset[disabled] select:-ms-input-placeholder, fieldset[disabled] .input:-ms-input-placeholder, fieldset[disabled] .textarea:-ms-input-placeholder {
+.select select[disabled]::placeholder, [disabled].input::placeholder, [disabled].textarea::placeholder, fieldset[disabled] .select select::placeholder, .select fieldset[disabled] select::placeholder, fieldset[disabled] .input::placeholder, fieldset[disabled] .textarea::placeholder {
   color: var(--bulma-input-disabled-placeholder-color);
 }
 
@@ -13921,20 +13900,8 @@ input.is-skeleton,
 textarea.is-skeleton {
   resize: none;
 }
-input.is-skeleton::-moz-placeholder,
-textarea.is-skeleton::-moz-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton::-webkit-input-placeholder,
-textarea.is-skeleton::-webkit-input-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton:-moz-placeholder,
-textarea.is-skeleton:-moz-placeholder {
-  color: transparent !important;
-}
-input.is-skeleton:-ms-input-placeholder,
-textarea.is-skeleton:-ms-input-placeholder {
+input.is-skeleton::placeholder,
+textarea.is-skeleton::placeholder {
   color: transparent !important;
 }
 
