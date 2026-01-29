@@ -2,6 +2,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:math";
+@use "sass:string";
 
 @use "initial-variables" as iv;
 @use "functions" as fn;
@@ -31,7 +32,7 @@
 
 @function getRgbaVar($name, $alpha, $prefix: "", $suffix: "") {
   $varName: buildVarName($name, $prefix, $suffix);
-  @return unquote("rgba(var(#{$varName}), #{$alpha})");
+  @return string.unquote("rgba(var(#{$varName}), #{$alpha})");
 }
 
 @mixin register-var($name, $value, $prefix: "", $suffix: "") {
